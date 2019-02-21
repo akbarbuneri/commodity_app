@@ -1,9 +1,9 @@
 var default_config = 
                 { headers: 
                     { 
-                        'DeviceToken': "75B98ACFA6C946108FA03B6ABB38211B", // Here you will put the Device Token Provided
-                        'UserID': "U23996-AEF4A894686BC8828EF8-8B518F-0B", // Here you will put the Device UserID 
-                        'Password': "yGnu/As3O52zQzbMBX/VMyNS1U8eCR7lL3bh1SfFCoifbPg49rjoNQ==" // Password
+                        'DeviceToken': "", // Here you will put the Device Token Provided
+                        'UserID': "", // Here you will put the Device UserID 
+                        'Password': "" // Password
                     } };
 var app = new Vue({
     el:"#apped",
