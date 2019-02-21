@@ -5,6 +5,8 @@ var default_config =
                         'UserID': "", // Here you will put the Device UserID 
                         'Password': "" // Password
                     } };
+var apiURL  = ""; // This will be provided in the document 
+
 var app = new Vue({
     el:"#apped",
     data :{
@@ -22,14 +24,14 @@ var app = new Vue({
     methods: {
             loadData:function(){
                 var fa = this;
-                axios.get("https://ppliveargaamplus.edanat.com/API/json/commodities/get-list", default_config)
+                axios.get(apiURL + "/API/json/commodities/get-list", default_config)
                 .then(function(response){
                     fa.commodities = response.data.Data; 
                 })
             },
             loadQuoteData:function(){
                 var fa = this;
-                axios.get("https://ppliveargaamplus.edanat.com/API/json/commodities/get-regular-commodity-quotes",default_config)
+                axios.get(apiURL +"/API/json/commodities/get-regular-commodity-quotes",default_config)
                 .then(function(response){
                     fa.commoditiesQuote = response.data.Data; 
                 })
@@ -39,7 +41,7 @@ var app = new Vue({
                 fa.selectedCommodity = fa.commodities.filter(function(c){
                     return (c.CommodityID == id);
                 })[0];
-                axios.get("https://ppliveargaamplus.edanat.com/API/json/commodities/get-regular-commodity-quotes-archive/"+id+"?start="+ fa.fromDate+"&end="+ fa.tillDate, default_config)
+                axios.get(apiURL +"/API/json/commodities/get-regular-commodity-quotes-archive/"+id+"?start="+ fa.fromDate+"&end="+ fa.tillDate, default_config)
                 .then(function(response){
                     fa.selectCommodityQuotes = response.data.Data; 
                 });
