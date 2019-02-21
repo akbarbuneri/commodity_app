@@ -1,0 +1,152 @@
+<Html>
+
+<Head>
+    <Title>
+        Commodity Listing API Example
+    </Title>
+    
+    <script type="text/javascript" src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+<Body>
+
+    <div id="apped">
+        <div>
+                <h1>Commodities with Running Prices </h1>
+                <table border="1" cellspacing="0">
+                        <tr>
+                            <th>ID</th>
+                            <th>Commodity Name En</th>
+                            <th>Commodity Name Ar</th>
+                            <th>For Date</th>
+                            <th>Open</th>
+                            <th>Close</th>
+                            <th>Previous Close</th>
+                            <th>High</th>
+                            <th>Low</th>
+                            <th>IndexValue</th>
+                            <th>Change</th>
+                            <th>Percentage Change</th>
+                            <th>YBGN Change</th>
+                            <th>Last Updated</th>
+                        </tr>
+                        <tr v-for="c in commoditiesQuote">
+                            <td>{{c.CommodityID}}</td>
+                            <td><a href="#" v-on:click="loadCommodityQoutes(c.CommodityID)">{{c.CommodityNameEn}}</a></td>
+                            <td>{{c.CommodityNameAr}}</td>
+                            <td v-html="formatDate(c.ForDate)"></td>
+                            <td>{{c.OpenValue}}</td>
+                            <td>{{c.CloseValue}}</td>
+                            <td>{{c.PreviousCloseValue}}</td>
+                            <td>{{c.High}}</td>
+                            <td>{{c.Low}}</td>
+                            <td>{{c.IndexValue}}</td>
+                            <td>{{c.Change}}</td>
+                            <td>{{c.PercentageChange}}</td>
+                            <td>{{c.YBGNChange}}</td>
+                            <td v-html="formatDate(c.LastUpdated)"></td> 
+                           
+                        </tr>
+                    </table>
+        </div>
+        <div style="float: left;">
+            <h1>Commodity Listing</h1>
+            <br>
+            <br>
+        <table border="1" cellspacing="0">
+            <tr>
+                <th>ID</th>
+                <th>Name En</th>
+                <th>Name Ar</th>
+                <th>Type</th>
+            </tr>
+            <tr v-for="c in commodities" style="cursor: pointer;">
+                <td>{{c.CommodityID}}</td>
+                <td><a href="#" v-on:click="loadCommodityQoutes(c.CommodityID)">{{c.NameEn}}</a></td>
+                <td>{{c.NameAr}}</td>
+                <td>{{c.Type}}</td>
+            </tr>
+        </table>
+        </div>
+        <div style="padding-left: 8px; float: left">
+            
+            <div style="padding-bottom: 8px;">
+                    <h1>{{selectedCommodity.NameEn}} ({{selectedCommodity.Type}})</h1>
+                    <span>From Date :</span>
+                    <input type="date" id="fromDate"  v-model="fromDate">
+                    <span>Till Date :</span>
+                    <input type="date" id="toDate" v-model="tillDate">
+                </div>
+            <table border="1" cellspacing="0" v-if="selectedCommodity.Type == 'Regular'" >
+                    <tr>
+                        <th>ID</th>
+                        <th>Commodity Name En</th>
+                        <th>Commodity Name Ar</th>
+                        <th>For Date</th>
+                        <th>Open</th>
+                        <th>Close</th> 
+                        <th>High</th>
+                        <th>Low</th> 
+                    </tr>
+                    <tr v-for="c in selectCommodityQuotes">
+                        <td>{{c.CommodityID}}</td>
+                        <td>{{c.CommodityNameEn}}</td>
+                        <td>{{c.CommodityNameAr}}</td>
+                        <td v-html="formatDate(c.ForDate)"></td>
+                        <td>{{c.OpenValue}}</td>
+                        <td>{{c.CloseValue}}</td> 
+                        <td>{{c.High}}</td>
+                        <td>{{c.Low}}</td>  
+                       
+                    </tr>
+                </table>
+
+                <table border="1" cellspacing="0" v-if="selectedCommodity.Type == 'Shipping'" >
+                        <tr>
+                            <th>ID</th>
+                            <th>Commodity Name En</th>
+                            <th>Commodity Name Ar</th>
+                            <th>For Date</th>
+                            <th>Price</th>
+                             
+                        </tr>
+                        <tr v-for="c in selectCommodityQuotes">
+                            <td>{{c.CommodityID}}</td>
+                            <td>{{c.CommodityNameEn}}</td>
+                            <td>{{c.CommodityNameAr}}</td>
+                            <td v-html="formatDate(c.ForDate)"></td>
+                            <td>{{c.Price}}</td>
+                        </tr>
+                    </table>
+                    <table border="1" cellspacing="0" v-if="selectedCommodity.Type == 'Others'" >
+                            <tr>
+                                <th>ID</th>
+                                <th>Commodity Name En</th>
+                                <th>Commodity Name Ar</th>
+                                <th>For Date</th>
+                                <th>Avg Value</th>
+                                <th>High</th>
+                                <th>Low</th>
+                                <th>Region (Ar)</th>
+                                <th>Region (En)</th>
+                                 
+                            </tr>
+                            <tr v-for="c in selectCommodityQuotes">
+                                <td>{{c.CommodityID}}</td>
+                                <td>{{c.CommodityNameEn}}</td>
+                                <td>{{c.CommodityNameAr}}</td>
+                                <td v-html="formatDate(c.ForDate)"></td>
+                                <td>{{c.AverageValue}}</td>
+                                <td>{{c.High}}</td>
+                                <td>{{c.Low}}</td>
+                                <td>{{c.RegionNameAr}}</td>
+                                <td>{{c.RegionNameEn}}</td>
+                            </tr>
+                        </table>
+        </div>
+    </div>
+    <script src="js/app.js?v=ssasxd"></script>
+
+</Body>
+
+</html>
